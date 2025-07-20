@@ -6,4 +6,45 @@ LLM Cmd 2 is native to the shell, so LLM-generated commands appear in bash histo
 
 It also includes OS information in the prompt, for more accurate commands.
 
+## Installation
+
+1. First, install the [llm CLI tool](https://github.com/simonw/llm)
+2. Run the installation script:
+   ```bash
+   ./install.sh
+   ```
+3. Restart your terminal or run:
+   ```bash
+   source ~/.zshrc
+   ```
+
+## Usage
+
+```bash
+llmcmd "your natural language request"
+```
+
+## Examples
+
+```bash
+# Find files
+llmcmd "find all Python files in current directory"
+
+# Process management
+llmcmd "kill process on port 3000"
+
+# File operations
+llmcmd "compress this folder to a zip file"
+llmcmd "extract archive.tar.gz"
+
+# Git operations
+llmcmd "undo last git commit"
+llmcmd "create new branch called feature-auth"
+
+# System information
+llmcmd "show disk usage"
+llmcmd "list running processes sorted by memory usage"
+```
+
+The generated commands will appear in your shell history, so you can easily re-run or modify them later.
 
