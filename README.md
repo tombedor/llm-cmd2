@@ -7,8 +7,8 @@ LLM Cmd 2 composes shell commands based on natural language prompts. The output 
 ![demo](./llmcmd2.gif)
 
 LLM Cmd 2 iterates on the original package:
-- The prompt includes OS information, for more accurate command generation.
-- The output is loaded to the shell, rather than executed directly, so generated commands appear in history.
+- Includes OS information in prompts for more accurate command generation.
+- Loads output into the shell rather than executing directly, so commands appear in history.
 
 ## Installation
 
