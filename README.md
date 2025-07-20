@@ -49,6 +49,3 @@ llmcmd "create new branch called feature-auth"
 llmcmd "show disk usage"
 llmcmd "list running processes sorted by memory usage"
 ```
-
-The generated commands will appear in your shell history, so you can easily re-run or modify them later.
-
