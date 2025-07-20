@@ -7,7 +7,7 @@ echo "Installing llm-cmd..."
 # Check if llm CLI is installed
 if ! command -v llm &> /dev/null; then
     echo "Error: llm CLI is not installed. Please install it first:"
-    echo "pip install llm"
+    echo "See: https://github.com/simonw/llm"
     exit 1
 fi
 
