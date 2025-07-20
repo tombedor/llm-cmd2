@@ -32,3 +32,4 @@ Use commands appropriate for $os_info when there are OS-specific differences."
     fi
 
     print -z "$generated_command"
+}
