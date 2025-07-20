@@ -2,9 +2,13 @@
 
 Inspired by [llm-cmd](https://github.com/simonw/llm-cmd)
 
-LLM Cmd 2 is native to the shell, so LLM-generated commands appear in bash history.
+LLM Cmd 2 composes shell commands based on natural language prompts. The output is loaded into the user's shell:
 
-It also includes OS information in the prompt, for more accurate commands.
+![demo](./llmcmd2.gif)
+
+LLM Cmd 2 iterates on the original package:
+- The prompt includes OS information, for more accurate command generation.
+- The output is loaded to the shell, rather than executed directly, so generated commands appear in history.
 
 ## Installation
 
