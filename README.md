@@ -2,7 +2,7 @@
 
 Inspired by [llm-cmd](https://github.com/simonw/llm-cmd)
 
-LLM Cmd 2 composes shell commands based on natural language prompts. The output is loaded into the user's shell:
+LLM Cmd 2 generates shell commands based on natural language prompts. The output is loaded into the user's shell:
 
 ![demo](./llmcmd2.gif)
 
