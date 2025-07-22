@@ -15,7 +15,12 @@ echo "✓ llm CLI found"
 
 # Copy the script to home directory
 HOME_SCRIPT="$HOME/.llm-cmd"
-cp .llm-cmd2 "$HOME_SCRIPT"
+# Check if we are running from within repository or remotely
+if [[ ! -f ".llm-cmd2" ]];
+    curl -o "$HOME_SCRIPT" -fsSL https://raw.githubusercontent.com/tombedor/llm-cmd2/refs/heads/main/.llm-cmd2
+else 
+    cp .llm-cmd2 "$HOME_SCRIPT"
+fi
 echo "✓ Copied script to $HOME_SCRIPT"
 
 # Check if .zshrc exists, create if it doesn't

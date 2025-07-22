@@ -15,7 +15,7 @@ LLM Cmd 2 iterates on the original package:
 1. First, install the [llm CLI tool](https://github.com/simonw/llm)
 2. Run the installation script:
    ```bash
-   ./install.sh
+   curl -fsSL https://raw.githubusercontent.com/tombedor/llm-cmd2/refs/heads/main/install.sh | /bin/bash
    ```
 3. Restart your terminal or run:
    ```bash
