@@ -16,7 +16,7 @@ echo "✓ llm CLI found"
 # Copy the script to home directory
 HOME_SCRIPT="$HOME/.llm-cmd"
 # Check if we are running from within repository or remotely
-if [[ ! -f ".llm-cmd2" ]];
+if [[ ! -f ".llm-cmd2" ]]; then
     curl -o "$HOME_SCRIPT" -fsSL https://raw.githubusercontent.com/tombedor/llm-cmd2/refs/heads/main/.llm-cmd2
 else 
     cp .llm-cmd2 "$HOME_SCRIPT"
