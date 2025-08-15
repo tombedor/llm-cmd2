@@ -4,7 +4,11 @@ Inspired by [llm-cmd](https://github.com/simonw/llm-cmd)
 
 LLM Cmd 2 generates shell commands based on natural language prompts. The output is loaded into the user's shell:
 
-![demo](./llmcmd2.gif)
+![demo](./demos/demo.gif)
+
+You can also use `llm-cmd` to fix commands that resulted in an error, without having to retype anything:
+
+![demo](./demos/fix.gif)
 
 LLM Cmd 2 iterates on the original package:
 - Includes OS information in prompts for more accurate command generation.

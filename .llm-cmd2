@@ -1,3 +1,33 @@
+# Global variables to store last failed command info
+LAST_FAILED_COMMAND=""
+LAST_FAILED_OUTPUT=""
+
+# Function to capture command failures
+capture_command_failure() {
+    local exit_code=$?
+    if [[ $exit_code -ne 0 ]]; then
+        LAST_FAILED_COMMAND="$1"
+        LAST_FAILED_OUTPUT="$2"
+    fi
+    return $exit_code
+}
+
+# Wrapper for command execution that captures failures
+run_with_capture() {
+    local cmd="$1"
+    local output
+    output=$(eval "$cmd" 2>&1)
+    local exit_code=$?
+    
+    if [[ $exit_code -ne 0 ]]; then
+        LAST_FAILED_COMMAND="$cmd"
+        LAST_FAILED_OUTPUT="$output"
+    fi
+    
+    echo "$output"
+    return $exit_code
+}
+
 llmcmd() {
     # Detect OS information
     local os_info=""
@@ -19,12 +49,28 @@ You return only: git reset --soft HEAD~1
 Use commands appropriate for $os_info when there are OS-specific differences."
 
     if [[ $# -eq 0 ]]; then
-        echo "Usage: llm-cmd <prompt>"
+        echo "Usage: llmcmd <prompt>"
+        echo "       llmcmd --fix|-f (to fix the last failed command)"
         return 1
     fi
 
-    local prompt="$*"
-    local generated_command=$(llm prompt -s "$SYSTEM_PROMPT" "$prompt")
+    # Check if user wants to fix the last failed command
+    if [[ "$1" == "--fix" || "$1" == "-f" ]]; then
+        if [[ -z "$LAST_FAILED_COMMAND" ]]; then
+            echo "No failed command to fix"
+            return 1
+        fi
+        
+        local fix_prompt="The command '$LAST_FAILED_COMMAND' failed with this output:
+$LAST_FAILED_OUTPUT
+
+Please provide a corrected version of the command that will work."
+        
+        local generated_command=$(llm prompt -s "$SYSTEM_PROMPT" "$fix_prompt")
+    else
+        local prompt="$*"
+        local generated_command=$(llm prompt -s "$SYSTEM_PROMPT" "$prompt")
+    fi
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to generate command"
@@ -32,4 +78,23 @@ Use commands appropriate for $os_info when there are OS-specific differences."
     fi
 
     print -z "$generated_command"
+}
+
+# Hook into command execution to capture failures
+preexec() {
+    # Store the command that's about to be executed
+    CURRENT_COMMAND="$1"
+}
+
+precmd() {
+    # Check if the last command failed and capture it
+    local exit_code=$?
+    if [[ $exit_code -ne 0 && -n "$CURRENT_COMMAND" ]]; then
+        # Don't capture llmcmd failures themselves
+        if [[ "$CURRENT_COMMAND" != llmcmd* ]]; then
+            LAST_FAILED_COMMAND="$CURRENT_COMMAND"
+            # Get the last few lines of history for context
+            LAST_FAILED_OUTPUT="Command exited with code $exit_code"
+        fi
+    fi
 }
